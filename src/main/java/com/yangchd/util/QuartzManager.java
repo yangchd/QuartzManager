@@ -1,4 +1,4 @@
-package com.simple.util;
+package com.yangchd.util;
 
 import java.text.ParseException;
 
@@ -8,7 +8,7 @@ import org.quartz.impl.StdSchedulerFactory;
 import static org.quartz.CronScheduleBuilder.cronSchedule;
 
 /**
- * Created by yangchd on 2017/10/13.
+ * @author  yangchd  2017/10/13.
  * Quartz定时任务管理
  * 使用版本2.2.1
  */
@@ -140,10 +140,12 @@ public class QuartzManager {
         Scheduler scheduler = schedulerFactory.getScheduler();
         TriggerKey triggerKey = TriggerKey.triggerKey(jobName,TRIGGER_GROUP_NAME);
         JobKey jobKey = JobKey.jobKey(jobName,JOB_GROUP_NAME);
-
-        scheduler.pauseTrigger(triggerKey);//停止触发器
-        scheduler.unscheduleJob(triggerKey);//移除触发器
-        scheduler.deleteJob(jobKey);//删除任务
+        //停止触发器
+        scheduler.pauseTrigger(triggerKey);
+        //移除触发器
+        scheduler.unscheduleJob(triggerKey);
+        //删除任务
+        scheduler.deleteJob(jobKey);
     }
 
     /**
@@ -159,22 +161,23 @@ public class QuartzManager {
         Scheduler scheduler = schedulerFactory.getScheduler();
         TriggerKey triggerKey = TriggerKey.triggerKey(jobName,jobGroupName);
         JobKey jobKey = JobKey.jobKey(triggerName,triggerGroupName);
-
-        scheduler.pauseTrigger(triggerKey);//停止触发器
-        scheduler.unscheduleJob(triggerKey);//移除触发器
-        scheduler.deleteJob(jobKey);//删除任务
+        //停止触发器
+        scheduler.pauseTrigger(triggerKey);
+        //移除触发器
+        scheduler.unscheduleJob(triggerKey);
+        //删除任务
+        scheduler.deleteJob(jobKey);
     }
 
     /**
      * 获取定时任务运行状态
-     * @param jobName           任务名称
+     * @param jobName       任务名称
      */
     public static Trigger.TriggerState getJobState(String jobName) throws SchedulerException {
         Scheduler scheduler = schedulerFactory.getScheduler();
         TriggerKey triggerKey = TriggerKey.triggerKey(jobName,TRIGGER_GROUP_NAME);
         return scheduler.getTriggerState(triggerKey);
     }
-
     public static Trigger.TriggerState getJobState(String jobName,String triggerGroupName) throws SchedulerException {
         Scheduler scheduler = schedulerFactory.getScheduler();
         TriggerKey triggerKey = TriggerKey.triggerKey(jobName,triggerGroupName);
