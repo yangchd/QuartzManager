@@ -17,7 +17,7 @@
      * @param jobName 任务名称
      * @param time    任务时间策略
      */
-    public static void addJob(String jobName, Class<? extends Job> job, String time) throws SchedulerException, ParseException
+    public void addJob(String jobName, Class<? extends Job> job, String time) throws SchedulerException, ParseException
 
     /**
      * 添加一个定时任务
@@ -29,7 +29,7 @@
      * @param job              任务
      * @param time             时间设置，参考quartz说明文档
      */
-    public static void addJob(String jobName, String jobGroupName, String triggerName, String triggerGroupName, Class<? extends Job> job, String time) throws SchedulerException, ParseException
+    public void addJob(String jobName, String jobGroupName, String triggerName, String triggerGroupName, Class<? extends Job> job, String time) throws SchedulerException, ParseException
 
     /**
      * 修改一个任务的触发时间(使用默认的任务组名，触发器名，触发器组名)
@@ -37,7 +37,7 @@
      * @param jobName 任务名
      * @param time    时间参数
      */
-    public static void modifyJobTime(String jobName, String time) throws SchedulerException, ParseException
+    public void modifyJobTime(String jobName, String time) throws SchedulerException, ParseException
     
     /**
      * 修改一个任务的触发时间
@@ -46,14 +46,14 @@
      * @param triggerGroupName 触发器组
      * @param time             时间参数
      */
-    public static void modifyJobTime(String triggerName, String triggerGroupName, String time) throws SchedulerException, ParseException
+    public void modifyJobTime(String triggerName, String triggerGroupName, String time) throws SchedulerException, ParseException
     
     /**
      * 移除一个任务(使用默认的任务组名，触发器名，触发器组名)
      *
      * @param jobName 任务名称
      */
-    public static void removeJob(String jobName) throws SchedulerException
+    public void removeJob(String jobName) throws SchedulerException
     
     /**
      * 移除一个任务
@@ -63,16 +63,16 @@
      * @param triggerName      触发器名称
      * @param triggerGroupName 触发器组
      */
-    public static void removeJob(String jobName, String jobGroupName, String triggerName, String triggerGroupName) throws SchedulerException
+    public void removeJob(String jobName, String jobGroupName, String triggerName, String triggerGroupName) throws SchedulerException
     
     /**
      * 获取定时任务运行状态
      *
      * @param jobName 任务名称
      */
-    public static Trigger.TriggerState getJobState(String jobName) throws SchedulerException
+    public Trigger.TriggerState getJobState(String jobName) throws SchedulerException
     
-    public static Trigger.TriggerState getJobState(String jobName, String triggerGroupName) throws SchedulerException
+    public Trigger.TriggerState getJobState(String jobName, String triggerGroupName) throws SchedulerException
 
 ```
 

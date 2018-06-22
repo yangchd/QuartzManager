@@ -9,14 +9,20 @@ import static org.quartz.CronScheduleBuilder.cronSchedule;
 
 /**
  * @author  yangchd  2017/10/13.
+ *
  * Quartz定时任务管理
  * 使用版本2.2.1
  */
-public class QuartzManager {
+public enum  QuartzManager {
 
-    private static SchedulerFactory schedulerFactory = new StdSchedulerFactory();
-    private static String JOB_GROUP_NAME = "job_group";
-    private static String TRIGGER_GROUP_NAME = "trigger_group";
+    /**
+     * QuartzManager 单例
+     */
+    INSTANCE;
+
+    private SchedulerFactory schedulerFactory = new StdSchedulerFactory();
+    private String JOB_GROUP_NAME = "job_group";
+    private String TRIGGER_GROUP_NAME = "trigger_group";
 
     /**
      * 添加一个定时任务，使用默认的任务组名，触发器名，触发器组名
@@ -25,7 +31,7 @@ public class QuartzManager {
      * @param jobName 任务名称
      * @param time    任务时间策略
      */
-    public static void addJob(String jobName, Class<? extends Job> job, String time)
+    public void addJob(String jobName, Class<? extends Job> job, String time)
             throws SchedulerException, ParseException {
         //设置任务
         JobDetail jobDetail = JobBuilder.newJob(job).withIdentity(jobName, JOB_GROUP_NAME).build();
@@ -53,9 +59,9 @@ public class QuartzManager {
      * @param job              任务
      * @param time             时间设置，参考quartz说明文档
      */
-    public static void addJob(String jobName, String jobGroupName,
-                              String triggerName, String triggerGroupName,
-                              Class<? extends Job> job, String time)
+    public void addJob(String jobName, String jobGroupName,
+                       String triggerName, String triggerGroupName,
+                       Class<? extends Job> job, String time)
             throws SchedulerException, ParseException {
         //设置任务
         JobDetail jobDetail = JobBuilder.newJob(job).withIdentity(jobName, jobGroupName).build();
@@ -78,7 +84,7 @@ public class QuartzManager {
      * @param jobName 任务名
      * @param time    时间参数
      */
-    public static void modifyJobTime(String jobName, String time)
+    public void modifyJobTime(String jobName, String time)
             throws SchedulerException, ParseException {
         Scheduler scheduler = schedulerFactory.getScheduler();
         TriggerKey triggerKey = TriggerKey.triggerKey(jobName, TRIGGER_GROUP_NAME);
@@ -109,8 +115,8 @@ public class QuartzManager {
      * @param triggerGroupName 触发器组
      * @param time             时间参数
      */
-    public static void modifyJobTime(String triggerName, String triggerGroupName,
-                                     String time)
+    public void modifyJobTime(String triggerName, String triggerGroupName,
+                              String time)
             throws SchedulerException, ParseException {
 
         Scheduler scheduler = schedulerFactory.getScheduler();
@@ -140,7 +146,7 @@ public class QuartzManager {
      *
      * @param jobName 任务名称
      */
-    public static void removeJob(String jobName)
+    public void removeJob(String jobName)
             throws SchedulerException {
         Scheduler scheduler = schedulerFactory.getScheduler();
         TriggerKey triggerKey = TriggerKey.triggerKey(jobName, TRIGGER_GROUP_NAME);
@@ -161,8 +167,8 @@ public class QuartzManager {
      * @param triggerName      触发器名称
      * @param triggerGroupName 触发器组
      */
-    public static void removeJob(String jobName, String jobGroupName,
-                                 String triggerName, String triggerGroupName)
+    public void removeJob(String jobName, String jobGroupName,
+                          String triggerName, String triggerGroupName)
             throws SchedulerException {
         Scheduler scheduler = schedulerFactory.getScheduler();
         TriggerKey triggerKey = TriggerKey.triggerKey(jobName, jobGroupName);
@@ -180,13 +186,13 @@ public class QuartzManager {
      *
      * @param jobName 任务名称
      */
-    public static Trigger.TriggerState getJobState(String jobName) throws SchedulerException {
+    public Trigger.TriggerState getJobState(String jobName) throws SchedulerException {
         Scheduler scheduler = schedulerFactory.getScheduler();
         TriggerKey triggerKey = TriggerKey.triggerKey(jobName, TRIGGER_GROUP_NAME);
         return scheduler.getTriggerState(triggerKey);
     }
 
-    public static Trigger.TriggerState getJobState(String jobName, String triggerGroupName) throws SchedulerException {
+    public Trigger.TriggerState getJobState(String jobName, String triggerGroupName) throws SchedulerException {
         Scheduler scheduler = schedulerFactory.getScheduler();
         TriggerKey triggerKey = TriggerKey.triggerKey(jobName, triggerGroupName);
         return scheduler.getTriggerState(triggerKey);
